@@ -59,7 +59,9 @@ const Calendar: React.FC<Props> = ({
         asSingle,
         i18n,
         startWeekOn,
-        input
+        input,
+        maxRange,
+        setSecondMaxDate
     } = useContext(DatepickerContext);
     loadLanguageModule(i18n);
 
@@ -150,6 +152,11 @@ const Calendar: React.FC<Props> = ({
                 if (asSingle) {
                     newEnd = fullDay;
                     chosePeriod(fullDay, fullDay);
+                } else {
+                    if (maxRange && setSecondMaxDate) {
+                        setSecondMaxDate(dayjs(fullDay).add(maxRange, "day").toDate());
+                        console.log("setSecondMaxDate");
+                    }
                 }
             } else {
                 if (period.start && !period.end) {
@@ -185,16 +192,18 @@ const Calendar: React.FC<Props> = ({
             }
         },
         [
-            asSingle,
+            date,
+            period.start,
+            period.end,
+            showFooter,
+            input,
             changeDatepickerValue,
+            hideDatepicker,
             changeDayHover,
             changePeriod,
-            date,
-            hideDatepicker,
-            period.end,
-            period.start,
-            showFooter,
-            input
+            setSecondMaxDate,
+            asSingle,
+            maxRange
         ]
     );
 

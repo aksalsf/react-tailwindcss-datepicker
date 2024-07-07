@@ -41,7 +41,8 @@ const Datepicker: React.FC<DatepickerType> = ({
     inputName,
     startWeekOn = "sun",
     classNames = undefined,
-    popoverDirection = undefined
+    popoverDirection = undefined,
+    maxRange
 }) => {
     // Ref
     const containerRef = useRef<HTMLDivElement | null>(null);
@@ -60,6 +61,7 @@ const Datepicker: React.FC<DatepickerType> = ({
     const [dayHover, setDayHover] = useState<string | null>(null);
     const [inputText, setInputText] = useState<string>("");
     const [inputRef, setInputRef] = useState(React.createRef<HTMLInputElement>());
+    const [secondMaxDate, setSecondMaxDate] = useState<Date | null>(maxDate);
 
     // Custom Hooks use
     useOnClickOutside(containerRef, () => {
@@ -233,6 +235,7 @@ const Datepicker: React.FC<DatepickerType> = ({
             } else {
                 setFirstDate(dayjs(startFrom));
                 setSecondDate(nextMonth(dayjs(startFrom)));
+                setSecondMaxDate(null);
             }
         }
     }, [asSingle, startFrom, value]);
@@ -273,7 +276,7 @@ const Datepicker: React.FC<DatepickerType> = ({
             readOnly,
             displayFormat,
             minDate,
-            maxDate,
+            maxDate: secondMaxDate,
             dateLooking,
             disabledDates,
             inputId,
@@ -282,7 +285,9 @@ const Datepicker: React.FC<DatepickerType> = ({
             classNames,
             onChange,
             input: inputRef,
-            popoverDirection
+            popoverDirection,
+            maxRange,
+            setSecondMaxDate
         };
     }, [
         asSingle,
@@ -306,7 +311,6 @@ const Datepicker: React.FC<DatepickerType> = ({
         readOnly,
         displayFormat,
         minDate,
-        maxDate,
         dateLooking,
         disabledDates,
         inputId,
@@ -315,7 +319,10 @@ const Datepicker: React.FC<DatepickerType> = ({
         classNames,
         inputRef,
         popoverDirection,
-        firstGotoDate
+        firstGotoDate,
+        maxRange,
+        secondMaxDate,
+        setSecondMaxDate
     ]);
 
     const containerClassNameOverload = useMemo(() => {
@@ -354,7 +361,7 @@ const Datepicker: React.FC<DatepickerType> = ({
                                     changeMonth={changeFirstMonth}
                                     changeYear={changeFirstYear}
                                     minDate={minDate}
-                                    maxDate={maxDate}
+                                    maxDate={secondMaxDate}
                                 />
 
                                 {useRange && (
@@ -370,7 +377,7 @@ const Datepicker: React.FC<DatepickerType> = ({
                                             changeMonth={changeSecondMonth}
                                             changeYear={changeSecondYear}
                                             minDate={minDate}
-                                            maxDate={maxDate}
+                                            maxDate={secondMaxDate}
                                         />
                                     </>
                                 )}

@@ -50,6 +50,8 @@ interface DatepickerStore {
     inputName?: string;
     classNames?: ClassNamesTypeProp;
     popoverDirection?: PopoverDirectionType;
+    maxRange?: number;
+    setSecondMaxDate: (date: Date | null) => void;
 }
 
 const DatepickerContext = createContext<DatepickerStore>({
@@ -92,7 +94,10 @@ const DatepickerContext = createContext<DatepickerStore>({
     toggleIcon: undefined,
     classNames: undefined,
     popoverDirection: undefined,
-    separator: "~"
+    separator: "~",
+    maxRange: 0,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+    setSecondMaxDate: date => {}
 });
 
 export default DatepickerContext;
