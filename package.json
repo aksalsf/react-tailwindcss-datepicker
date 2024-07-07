@@ -19,7 +19,8 @@
         "build": "npm run code-style && npm run clean && rollup -c",
         "pub": "npm run build && npm publish",
         "dev": "next dev -p 8888",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "prepublishOnly": "npm run build"
     },
     "repository": {
         "type": "git",
