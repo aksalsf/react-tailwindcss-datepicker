@@ -1345,7 +1345,6 @@ const Calendar = ({ date, minDate, maxDate, onClickPrevious, onClickNext, change
             else {
                 if (maxRange && setSecondMaxDate) {
                     setSecondMaxDate(require$$0__default["default"](fullDay).add(maxRange, "day").toDate());
-                    console.log("setSecondMaxDate");
                 }
             }
         }
