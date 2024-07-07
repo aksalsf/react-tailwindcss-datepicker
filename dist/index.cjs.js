@@ -1344,7 +1344,11 @@ const Calendar = ({ date, minDate, maxDate, onClickPrevious, onClickNext, change
             }
             else {
                 if (maxRange && setSecondMaxDate) {
-                    setSecondMaxDate(require$$0__default["default"](fullDay).add(maxRange, "day").toDate());
+                    const estimatedMaxDate = require$$0__default["default"](fullDay).add(maxRange, "day");
+                    const finalMaxDate = estimatedMaxDate.isAfter()
+                        ? require$$0__default["default"]().toDate()
+                        : estimatedMaxDate.toDate();
+                    setSecondMaxDate(finalMaxDate);
                 }
             }
         }
@@ -1960,9 +1964,9 @@ const Datepicker = ({ primaryColor = "blue", value = null, onChange, useRange = 
                 end: null
             });
             setInputText("");
-            setSecondMaxDate(null);
+            setSecondMaxDate(maxDate);
         }
-    }, [asSingle, value, displayFormat, separator]);
+    }, [asSingle, value, displayFormat, separator, maxDate]);
     React.useEffect(() => {
         if (startFrom && require$$0__default["default"](startFrom).isValid()) {
             const startDate = value?.startDate;
@@ -1983,10 +1987,10 @@ const Datepicker = ({ primaryColor = "blue", value = null, onChange, useRange = 
             else {
                 setFirstDate(require$$0__default["default"](startFrom));
                 setSecondDate(nextMonth(require$$0__default["default"](startFrom)));
-                setSecondMaxDate(null);
+                setSecondMaxDate(maxDate);
             }
         }
-    }, [asSingle, startFrom, value]);
+    }, [asSingle, maxDate, startFrom, value]);
     // Variables
     const safePrimaryColor = React.useMemo(() => {
         if (COLORS.includes(primaryColor)) {

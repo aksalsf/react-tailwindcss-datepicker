@@ -1337,7 +1337,11 @@ const Calendar = ({ date, minDate, maxDate, onClickPrevious, onClickNext, change
             }
             else {
                 if (maxRange && setSecondMaxDate) {
-                    setSecondMaxDate(require$$0(fullDay).add(maxRange, "day").toDate());
+                    const estimatedMaxDate = require$$0(fullDay).add(maxRange, "day");
+                    const finalMaxDate = estimatedMaxDate.isAfter()
+                        ? require$$0().toDate()
+                        : estimatedMaxDate.toDate();
+                    setSecondMaxDate(finalMaxDate);
                 }
             }
         }
@@ -1953,9 +1957,9 @@ const Datepicker = ({ primaryColor = "blue", value = null, onChange, useRange = 
                 end: null
             });
             setInputText("");
-            setSecondMaxDate(null);
+            setSecondMaxDate(maxDate);
         }
-    }, [asSingle, value, displayFormat, separator]);
+    }, [asSingle, value, displayFormat, separator, maxDate]);
     useEffect(() => {
         if (startFrom && require$$0(startFrom).isValid()) {
             const startDate = value?.startDate;
@@ -1976,10 +1980,10 @@ const Datepicker = ({ primaryColor = "blue", value = null, onChange, useRange = 
             else {
                 setFirstDate(require$$0(startFrom));
                 setSecondDate(nextMonth(require$$0(startFrom)));
-                setSecondMaxDate(null);
+                setSecondMaxDate(maxDate);
             }
         }
-    }, [asSingle, startFrom, value]);
+    }, [asSingle, maxDate, startFrom, value]);
     // Variables
     const safePrimaryColor = useMemo(() => {
         if (COLORS.includes(primaryColor)) {

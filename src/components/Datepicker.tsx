@@ -212,9 +212,9 @@ const Datepicker: React.FC<DatepickerType> = ({
                 end: null
             });
             setInputText("");
-            setSecondMaxDate(null);
+            setSecondMaxDate(maxDate);
         }
-    }, [asSingle, value, displayFormat, separator]);
+    }, [asSingle, value, displayFormat, separator, maxDate]);
 
     useEffect(() => {
         if (startFrom && dayjs(startFrom).isValid()) {
@@ -236,10 +236,10 @@ const Datepicker: React.FC<DatepickerType> = ({
             } else {
                 setFirstDate(dayjs(startFrom));
                 setSecondDate(nextMonth(dayjs(startFrom)));
-                setSecondMaxDate(null);
+                setSecondMaxDate(maxDate);
             }
         }
-    }, [asSingle, startFrom, value]);
+    }, [asSingle, maxDate, startFrom, value]);
 
     // Variables
     const safePrimaryColor = useMemo(() => {

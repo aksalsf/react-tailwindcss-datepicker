@@ -154,7 +154,11 @@ const Calendar: React.FC<Props> = ({
                     chosePeriod(fullDay, fullDay);
                 } else {
                     if (maxRange && setSecondMaxDate) {
-                        setSecondMaxDate(dayjs(fullDay).add(maxRange, "day").toDate());
+                        const estimatedMaxDate = dayjs(fullDay).add(maxRange, "day");
+                        const finalMaxDate = estimatedMaxDate.isAfter()
+                            ? dayjs().toDate()
+                            : estimatedMaxDate.toDate();
+                        setSecondMaxDate(finalMaxDate);
                     }
                 }
             } else {
