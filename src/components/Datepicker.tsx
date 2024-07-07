@@ -212,6 +212,7 @@ const Datepicker: React.FC<DatepickerType> = ({
                 end: null
             });
             setInputText("");
+            setSecondMaxDate(null);
         }
     }, [asSingle, value, displayFormat, separator]);
 

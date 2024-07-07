@@ -1954,6 +1954,7 @@ const Datepicker = ({ primaryColor = "blue", value = null, onChange, useRange = 
                 end: null
             });
             setInputText("");
+            setSecondMaxDate(null);
         }
     }, [asSingle, value, displayFormat, separator]);
     useEffect(() => {
