@@ -323,7 +323,7 @@ const Calendar: React.FC<Props> = ({
                 )}
             </div>
 
-            <div className="px-0.5 sm:px-2 mt-0.5 min-h-[285px]">
+            <div className="px-0.5 sm:px-2 mt-4 min-h-[285px]">
                 {showMonths && (
                     <Months currentMonth={calendarData.date.month() + 1} clickMonth={clickMonth} />
                 )}

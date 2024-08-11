@@ -17,12 +17,12 @@ const Footer: React.FC = () => {
             return classNames.footer();
         }
 
-        return "flex items-center justify-end pb-2.5 pt-3 border-t border-gray-300 dark:border-gray-700";
+        return "flex items-center justify-stretch pb-2.5 pt-3 border-t border-gray-300 dark:border-gray-700";
     }, [classNames]);
 
     return (
         <div className={getClassName()}>
-            <div className="w-full md:w-auto flex items-center justify-center space-x-3">
+            <div className="grid items-center justify-between w-full grid-cols-2 gap-4 p-4">
                 <SecondaryButton
                     onClick={() => {
                         hideDatepicker();

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from "react";
 
-import { BG_COLOR, BORDER_COLOR, BUTTON_COLOR, RING_COLOR } from "../constants";
+import { BG_COLOR, BORDER_COLOR, BUTTON_COLOR, RING_COLOR, TEXT_COLOR } from "../constants";
 import DatepickerContext from "../contexts/DatepickerContext";
 
 interface IconProps {
@@ -120,12 +120,7 @@ export const DoubleChevronRightIcon: React.FC<IconProps> = ({ className = "w-6 h
 
 // eslint-disable-next-line react/display-name,@typescript-eslint/ban-types
 export const Arrow = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
-    return (
-        <div
-            ref={ref}
-            className="absolute z-20 h-4 w-4 rotate-45 mt-0.5 ml-[1.2rem] border-l border-t border-gray-300 bg-white dark:bg-slate-800 dark:border-slate-600"
-        />
-    );
+    return <div ref={ref} className="hidden" />;
 });
 
 export const SecondaryButton: React.FC<Button> = ({ children, onClick, disabled = false }) => {
@@ -135,7 +130,10 @@ export const SecondaryButton: React.FC<Button> = ({ children, onClick, disabled 
     // Functions
     const getClassName: () => string = useCallback(() => {
         const ringColor = RING_COLOR.focus[primaryColor as keyof typeof RING_COLOR.focus];
-        return `w-full transition-all duration-300 bg-white dark:text-gray-700 font-medium border border-gray-300 px-4 py-2 text-sm rounded-md focus:ring-2 focus:ring-offset-2 hover:bg-gray-50 ${ringColor}`;
+        const textColor = TEXT_COLOR["600"][primaryColor as keyof (typeof TEXT_COLOR)["600"]];
+        const textColorHover = TEXT_COLOR.hover[primaryColor as keyof typeof TEXT_COLOR.hover];
+        const borderColor = BORDER_COLOR["500"][primaryColor as keyof (typeof BORDER_COLOR)["500"]];
+        return `w-full transition-all duration-300 bg-white font-medium border ${borderColor} px-4 py-[10px] text-sm rounded-md focus:ring-2 focus:ring-offset-2 hover:bg-gray-50 ${ringColor} ${textColor} ${textColorHover}`;
     }, [primaryColor]);
 
     return (
@@ -155,7 +153,7 @@ export const PrimaryButton: React.FC<Button> = ({ children, onClick, disabled = 
 
     // Functions
     const getClassName = useCallback(() => {
-        return `w-full transition-all duration-300 ${bgColor} ${borderColor} text-white font-medium border px-4 py-2 text-sm rounded-md focus:ring-2 focus:ring-offset-2 ${bgColorHover} ${ringColor} ${
+        return `w-full transition-all duration-300 ${bgColor} ${borderColor} text-white font-medium border px-4 py-[10px] text-sm rounded-md focus:ring-2 focus:ring-offset-2 ${bgColorHover} ${ringColor} ${
             disabled ? " cursor-no-drop" : ""
         }`;
     }, [bgColor, bgColorHover, borderColor, disabled, ringColor]);
