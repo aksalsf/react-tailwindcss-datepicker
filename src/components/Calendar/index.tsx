@@ -204,9 +204,10 @@ const Calendar: React.FC<Props> = ({
             hideDatepicker,
             changeDayHover,
             changePeriod,
-            setSecondMaxDate,
             asSingle,
-            maxRange
+            maxRange,
+            setSecondMaxDate,
+            maxDate
         ]
     );
 

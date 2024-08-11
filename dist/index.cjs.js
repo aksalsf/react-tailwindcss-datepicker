@@ -1568,11 +1568,7 @@ const DoubleChevronRightIcon = ({ className = "w-6 h-6" }) => {
 };
 // eslint-disable-next-line react/display-name,@typescript-eslint/ban-types
 const Arrow = React__default["default"].forwardRef((props, ref) => {
-    return React__default["default"].createElement("div", {
-        ref: ref,
-        className:
-            "absolute z-20 h-4 w-4 rotate-45 mt-0.5 ml-[1.2rem] border-l border-t border-gray-300 bg-white dark:bg-slate-800 dark:border-slate-600"
-    });
+    return React__default["default"].createElement("div", { ref: ref, className: "hidden" });
 });
 const SecondaryButton = ({ children, onClick, disabled = false }) => {
     // Contexts
@@ -1580,7 +1576,10 @@ const SecondaryButton = ({ children, onClick, disabled = false }) => {
     // Functions
     const getClassName = React.useCallback(() => {
         const ringColor = RING_COLOR.focus[primaryColor];
-        return `w-full transition-all duration-300 bg-white dark:text-gray-700 font-medium border border-gray-300 px-4 py-2 text-sm rounded-md focus:ring-2 focus:ring-offset-2 hover:bg-gray-50 ${ringColor}`;
+        const textColor = TEXT_COLOR["600"][primaryColor];
+        const textColorHover = TEXT_COLOR.hover[primaryColor];
+        const borderColor = BORDER_COLOR["500"][primaryColor];
+        return `w-full transition-all duration-300 bg-white font-medium border ${borderColor} px-4 py-[10px] text-sm rounded-md focus:ring-2 focus:ring-offset-2 hover:bg-gray-50 ${ringColor} ${textColor} ${textColorHover}`;
     }, [primaryColor]);
     return React__default["default"].createElement(
         "button",
@@ -1597,7 +1596,7 @@ const PrimaryButton = ({ children, onClick, disabled = false }) => {
     const ringColor = RING_COLOR.focus[primaryColor];
     // Functions
     const getClassName = React.useCallback(() => {
-        return `w-full transition-all duration-300 ${bgColor} ${borderColor} text-white font-medium border px-4 py-2 text-sm rounded-md focus:ring-2 focus:ring-offset-2 ${bgColorHover} ${ringColor} ${
+        return `w-full transition-all duration-300 ${bgColor} ${borderColor} text-white font-medium border px-4 py-[10px] text-sm rounded-md focus:ring-2 focus:ring-offset-2 ${bgColorHover} ${ringColor} ${
             disabled ? " cursor-no-drop" : ""
         }`;
     }, [bgColor, bgColorHover, borderColor, disabled, ringColor]);
@@ -2290,8 +2289,10 @@ const Calendar = ({
                             maxRange,
                             "day"
                         );
-                        const finalMaxDate = estimatedMaxDate.isAfter()
-                            ? require$$0__default["default"]().toDate()
+                        const finalMaxDate = estimatedMaxDate.isAfter(
+                            require$$0__default["default"](maxDate)
+                        )
+                            ? require$$0__default["default"](maxDate).toDate()
                             : estimatedMaxDate.toDate();
                         setSecondMaxDate(finalMaxDate);
                     }
@@ -2345,9 +2346,10 @@ const Calendar = ({
             hideDatepicker,
             changeDayHover,
             changePeriod,
-            setSecondMaxDate,
             asSingle,
-            maxRange
+            maxRange,
+            setSecondMaxDate,
+            maxDate
         ]
     );
     const clickPreviousDays = React.useCallback(
@@ -2413,7 +2415,7 @@ const Calendar = ({
                         RoundedButton,
                         { roundedFull: true, onClick: onClickPrevious },
                         React__default["default"].createElement(ChevronLeftIcon, {
-                            className: "h-5 w-5"
+                            className: "w-5 h-5"
                         })
                     )
                 ),
@@ -2430,7 +2432,7 @@ const Calendar = ({
                             }
                         },
                         React__default["default"].createElement(DoubleChevronLeftIcon, {
-                            className: "h-5 w-5"
+                            className: "w-5 h-5"
                         })
                     )
                 ),
@@ -2487,7 +2489,7 @@ const Calendar = ({
                             }
                         },
                         React__default["default"].createElement(DoubleChevronRightIcon, {
-                            className: "h-5 w-5"
+                            className: "w-5 h-5"
                         })
                     )
                 ),
@@ -2500,14 +2502,14 @@ const Calendar = ({
                         RoundedButton,
                         { roundedFull: true, onClick: onClickNext },
                         React__default["default"].createElement(ChevronRightIcon, {
-                            className: "h-5 w-5"
+                            className: "w-5 h-5"
                         })
                     )
                 )
         ),
         React__default["default"].createElement(
             "div",
-            { className: "px-0.5 sm:px-2 mt-0.5 min-h-[285px]" },
+            { className: "px-0.5 sm:px-2 mt-4 min-h-[285px]" },
             showMonths &&
                 React__default["default"].createElement(Months, {
                     currentMonth: calendarData.date.month() + 1,
@@ -2547,14 +2549,14 @@ const Footer = () => {
         if (typeof classNames !== "undefined" && typeof classNames?.footer === "function") {
             return classNames.footer();
         }
-        return "flex items-center justify-end pb-2.5 pt-3 border-t border-gray-300 dark:border-gray-700";
+        return "flex items-center justify-stretch pb-2.5 pt-3 border-t border-gray-300 dark:border-gray-700";
     }, [classNames]);
     return React__default["default"].createElement(
         "div",
         { className: getClassName() },
         React__default["default"].createElement(
             "div",
-            { className: "w-full md:w-auto flex items-center justify-center space-x-3" },
+            { className: "grid items-center justify-between w-full grid-cols-2 gap-4 p-4" },
             React__default["default"].createElement(
                 SecondaryButton,
                 {
@@ -2914,9 +2916,8 @@ const ItemTemplate = React__default["default"].memo(props => {
     } = React.useContext(DatepickerContext);
     // Functions
     const getClassName = React.useCallback(() => {
-        const textColor = TEXT_COLOR["600"][primaryColor];
         const textColorHover = TEXT_COLOR.hover[primaryColor];
-        return `whitespace-nowrap w-1/2 md:w-1/3 lg:w-auto transition-all duration-300 hover:bg-gray-100 dark:hover:bg-white/10 p-2 rounded cursor-pointer ${textColor} ${textColorHover}`;
+        return `whitespace-nowrap w-1/3 lg:w-auto transition-all duration-300 p-2 lg:py-3 lg:px-4 cursor-pointer font-medium text-xs ${textColorHover}`;
     }, [primaryColor]);
     const chosePeriod = React.useCallback(
         item => {
@@ -3007,11 +3008,11 @@ const Shortcuts = () => {
               "div",
               {
                   className:
-                      "md:border-b mb-3 lg:mb-0 lg:border-r lg:border-b-0 border-gray-300 dark:border-gray-700 pr-1"
+                      "p-4 mb-3 border-gray-300 md:border-b lg:mb-0 lg:border-r lg:border-b-0 dark:border-gray-700"
               },
               React__default["default"].createElement(
                   "ul",
-                  { className: "w-full tracking-wide flex flex-wrap lg:flex-col pb-1 lg:pb-0" },
+                  { className: "flex flex-wrap w-full pb-1 tracking-wide lg:flex-col lg:pb-0" },
                   shortcutOptions.map(([key, item], index) =>
                       Array.isArray(item)
                           ? item.map((item, index) =>
@@ -3394,7 +3395,7 @@ const Datepicker = ({
                 "div",
                 {
                     className:
-                        "transition-all ease-out duration-300 absolute z-10 mt-[1px] text-sm lg:text-xs 2xl:text-sm translate-y-4 opacity-0 hidden",
+                        "transition-all ease-out duration-300 absolute z-10 mt-[1px] text-xs translate-y-4 opacity-0 hidden",
                     ref: calendarContainerRef
                 },
                 React__default["default"].createElement(Arrow, { ref: arrowRef }),
@@ -3406,7 +3407,7 @@ const Datepicker = ({
                     },
                     React__default["default"].createElement(
                         "div",
-                        { className: "flex flex-col lg:flex-row py-2" },
+                        { className: "flex flex-col py-2 lg:flex-row" },
                         showShortcuts && React__default["default"].createElement(Shortcuts, null),
                         React__default["default"].createElement(
                             "div",
