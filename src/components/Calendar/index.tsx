@@ -155,8 +155,8 @@ const Calendar: React.FC<Props> = ({
                 } else {
                     if (maxRange && setSecondMaxDate) {
                         const estimatedMaxDate = dayjs(fullDay).add(maxRange, "day");
-                        const finalMaxDate = estimatedMaxDate.isAfter()
-                            ? dayjs().toDate()
+                        const finalMaxDate = estimatedMaxDate.isAfter(dayjs(maxDate))
+                            ? dayjs(maxDate).toDate()
                             : estimatedMaxDate.toDate();
                         setSecondMaxDate(finalMaxDate);
                     }
@@ -259,7 +259,7 @@ const Calendar: React.FC<Props> = ({
                 {!showMonths && !showYears && (
                     <div className="flex-none">
                         <RoundedButton roundedFull={true} onClick={onClickPrevious}>
-                            <ChevronLeftIcon className="h-5 w-5" />
+                            <ChevronLeftIcon className="w-5 h-5" />
                         </RoundedButton>
                     </div>
                 )}
@@ -272,7 +272,7 @@ const Calendar: React.FC<Props> = ({
                                 setYear(year - 12);
                             }}
                         >
-                            <DoubleChevronLeftIcon className="h-5 w-5" />
+                            <DoubleChevronLeftIcon className="w-5 h-5" />
                         </RoundedButton>
                     </div>
                 )}
@@ -309,7 +309,7 @@ const Calendar: React.FC<Props> = ({
                                 setYear(year + 12);
                             }}
                         >
-                            <DoubleChevronRightIcon className="h-5 w-5" />
+                            <DoubleChevronRightIcon className="w-5 h-5" />
                         </RoundedButton>
                     </div>
                 )}
@@ -317,7 +317,7 @@ const Calendar: React.FC<Props> = ({
                 {!showMonths && !showYears && (
                     <div className="flex-none">
                         <RoundedButton roundedFull={true} onClick={onClickNext}>
-                            <ChevronRightIcon className="h-5 w-5" />
+                            <ChevronRightIcon className="w-5 h-5" />
                         </RoundedButton>
                     </div>
                 )}
