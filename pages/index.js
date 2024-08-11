@@ -31,6 +31,7 @@ export default function Playground() {
     const [newDisabledDates, setNewDisabledDates] = useState({ startDate: "", endDate: "" });
     const [startFrom, setStartFrom] = useState("2023-03-01");
     const [startWeekOn, setStartWeekOn] = useState("");
+    const [maxRange, setMaxRange] = useState(0);
 
     const handleChange = (value, e) => {
         setValue(value);
@@ -42,8 +43,8 @@ export default function Playground() {
             <Head>
                 <title>react-tailwindcss-datepicker PlayGround</title>
             </Head>
-            <h1 className="text-center font-semibold text-xl">
-                <pre className="text-gray-600 text-lg bg-gray-200 max-w-max mx-auto px-2 rounded">
+            <h1 className="text-xl font-semibold text-center">
+                <pre className="px-2 mx-auto text-lg text-gray-600 bg-gray-200 rounded max-w-max">
                     react-tailwindcss-datepicker
                 </pre>
                 <span className="text-gray-700">PlayGround</span>
@@ -113,25 +114,12 @@ export default function Playground() {
                         return isEmpty ? "Select Date" : "Clear";
                     }}
                     popoverDirection={"down"}
-                    // classNames={{
-                    //     input: ({ disabled, readOnly, className }) => {
-                    //         if (disabled) {
-                    //             return "opacity-40";
-                    //         }
-                    //         return `className`;
-                    //     },
-                    //     toggleButton: () => {
-                    //         return "bg-blue-300 ease-in-out";
-                    //     },
-                    //     footer: () => {
-                    //         return `p-4 border-t border-gray-600 flex flex-row flex-wrap justify-end`;
-                    //     }
-                    // }}
+                    maxRange={maxRange}
                 />
             </div>
-            <div className="py-4 max-w-3xl mx-auto flex flex-row flex-wrap">
-                <div className="w-full sm:w-1/3 pr-2 flex flex-row flex-wrap sm:flex-col">
-                    <div className="mb-2 w-1/2 sm:w-full">
+            <div className="flex flex-row flex-wrap max-w-3xl py-4 mx-auto">
+                <div className="flex flex-row flex-wrap w-full pr-2 sm:w-1/3 sm:flex-col">
+                    <div className="w-1/2 mb-2 sm:w-full">
                         <div className="inline-flex items-center">
                             <input
                                 type="checkbox"
@@ -145,7 +133,7 @@ export default function Playground() {
                             </label>
                         </div>
                     </div>
-                    <div className="mb-2 w-1/2 sm:w-full">
+                    <div className="w-1/2 mb-2 sm:w-full">
                         <div className="inline-flex items-center">
                             <input
                                 type="checkbox"
@@ -159,7 +147,7 @@ export default function Playground() {
                             </label>
                         </div>
                     </div>
-                    <div className="mb-2 w-1/2 sm:w-full">
+                    <div className="w-1/2 mb-2 sm:w-full">
                         <div className="inline-flex items-center">
                             <input
                                 type="checkbox"
@@ -173,7 +161,7 @@ export default function Playground() {
                             </label>
                         </div>
                     </div>
-                    <div className="mb-2 w-1/2 sm:w-full">
+                    <div className="w-1/2 mb-2 sm:w-full">
                         <div className="inline-flex items-center">
                             <input
                                 type="checkbox"
@@ -187,7 +175,7 @@ export default function Playground() {
                             </label>
                         </div>
                     </div>
-                    <div className="mb-2 w-1/2 sm:w-full">
+                    <div className="w-1/2 mb-2 sm:w-full">
                         <div className="inline-flex items-center">
                             <input
                                 type="checkbox"
@@ -201,7 +189,7 @@ export default function Playground() {
                             </label>
                         </div>
                     </div>
-                    <div className="mb-2 w-1/2 sm:w-full">
+                    <div className="w-1/2 mb-2 sm:w-full">
                         <div className="inline-flex items-center">
                             <input
                                 type="checkbox"
@@ -216,13 +204,13 @@ export default function Playground() {
                         </div>
                     </div>
                 </div>
-                <div className="w-full sm:w-1/3 pr-2 flex flex-col">
+                <div className="flex flex-col w-full pr-2 sm:w-1/3">
                     <div className="mb-2">
                         <label className="block" htmlFor="primaryColor">
                             Primary Color
                         </label>
                         <select
-                            className="rounded block w-full border-gray-200 border px-4 py-2"
+                            className="block w-full px-4 py-2 border border-gray-200 rounded"
                             id="primaryColor"
                             value={primaryColor}
                             onChange={e => {
@@ -241,7 +229,7 @@ export default function Playground() {
                             Placeholder
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="placeholder"
                             value={placeholder}
                             onChange={e => {
@@ -254,7 +242,7 @@ export default function Playground() {
                             Separator
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="separator"
                             value={separator}
                             onChange={e => {
@@ -267,7 +255,7 @@ export default function Playground() {
                             Start From
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="startFrom"
                             value={startFrom}
                             onChange={e => {
@@ -280,7 +268,7 @@ export default function Playground() {
                             Minimum Date
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="minDate"
                             value={minDate}
                             onChange={e => {
@@ -293,7 +281,7 @@ export default function Playground() {
                             Maximum Date
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="maxDate"
                             value={maxDate}
                             onChange={e => {
@@ -306,7 +294,7 @@ export default function Playground() {
                             Date Looking
                         </label>
                         <select
-                            className="rounded block w-full border-gray-200 border px-4 py-2"
+                            className="block w-full px-4 py-2 border border-gray-200 rounded"
                             id="dateLooking"
                             value={dateLooking}
                             onChange={e => {
@@ -321,13 +309,13 @@ export default function Playground() {
                         </select>
                     </div>
                 </div>
-                <div className="w-full sm:w-1/3 pr-2 flex flex-col">
+                <div className="flex flex-col w-full pr-2 sm:w-1/3">
                     <div className="mb-2">
                         <label className="block" htmlFor="i18n">
                             i18n
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="i18n"
                             value={i18n}
                             onChange={e => {
@@ -340,7 +328,7 @@ export default function Playground() {
                             Display Format
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="displayFormat"
                             value={displayFormat}
                             onChange={e => {
@@ -353,7 +341,7 @@ export default function Playground() {
                             Input Class
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="inputClassName"
                             value={inputClassName}
                             onChange={e => {
@@ -366,7 +354,7 @@ export default function Playground() {
                             Container Class
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="containerClassName"
                             value={containerClassName}
                             onChange={e => {
@@ -379,7 +367,7 @@ export default function Playground() {
                             Toggle Class
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="toggleClassName"
                             value={toggleClassName}
                             onChange={e => {
@@ -392,7 +380,7 @@ export default function Playground() {
                             Start Week On
                         </label>
                         <input
-                            className="rounded border px-4 py-2 w-full border-gray-200"
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
                             id="startWeekOnClassName"
                             value={startWeekOn}
                             onChange={e => {
@@ -400,18 +388,31 @@ export default function Playground() {
                             }}
                         />
                     </div>
+                    <div className="mb-2">
+                        <label className="block" htmlFor="maxRange">
+                            Max Range (Days)
+                        </label>
+                        <input
+                            className="w-full px-4 py-2 border border-gray-200 rounded"
+                            id="maxRange"
+                            value={maxRange}
+                            onChange={e => {
+                                setMaxRange(e.target.value);
+                            }}
+                        />
+                    </div>
                 </div>
-                <div className="w-full grid sm:grid-cols-3">
-                    <div className="sm:col-start-2 sm:col-span-2 p-2 border-t grid grid-cols-2">
-                        <h1 className="mb-2 text-lg font-semibold text-center col-span-3">
+                <div className="grid w-full sm:grid-cols-3">
+                    <div className="grid grid-cols-2 p-2 border-t sm:col-start-2 sm:col-span-2">
+                        <h1 className="col-span-3 mb-2 text-lg font-semibold text-center">
                             Disable Dates
                         </h1>
-                        <div className="mb-2 sm:col-span-2 mr-2">
+                        <div className="mb-2 mr-2 sm:col-span-2">
                             <label className="block" htmlFor="startDate">
                                 Start Date
                             </label>
                             <input
-                                className="rounded border px-4 py-2 border-gray-200 sm:w-full w-3/4"
+                                className="w-3/4 px-4 py-2 border border-gray-200 rounded sm:w-full"
                                 id="startDate"
                                 value={newDisabledDates.startDate}
                                 onChange={e => {
@@ -429,7 +430,7 @@ export default function Playground() {
                                 End Date
                             </label>
                             <input
-                                className="rounded border px-4 py-2 border-gray-200 sm:w-full w-3/4"
+                                className="w-3/4 px-4 py-2 border border-gray-200 rounded sm:w-full"
                                 id="endDate"
                                 value={newDisabledDates.endDate}
                                 onChange={e => {
@@ -442,7 +443,7 @@ export default function Playground() {
                                 }}
                             />
                         </div>
-                        <div className="mb-2 col-span-3">
+                        <div className="col-span-3 mb-2">
                             <button
                                 onClick={() => {
                                     if (
@@ -453,16 +454,16 @@ export default function Playground() {
                                         setNewDisabledDates({ startDate: "", endDate: "" });
                                     }
                                 }}
-                                className="w-full bg-black text-white text-lg text-center p-2 rounded-lg"
+                                className="w-full p-2 text-lg text-center text-white bg-black rounded-lg"
                             >
                                 Add
                             </button>
                         </div>
-                        <div className="mb-2 grid col-span-3 grid-col-2">
+                        <div className="grid col-span-3 mb-2 grid-col-2">
                             {disabledDates.map((range, index) => (
-                                <div className="mb-2 p-2" key={index}>
+                                <div className="p-2 mb-2" key={index}>
                                     <button
-                                        className="bg-red-500 text-white text-center rounded-xl p-2"
+                                        className="p-2 text-center text-white bg-red-500 rounded-xl"
                                         onClick={() => {
                                             setDisabledDates(
                                                 disabledDates.filter(r => r !== range)

@@ -1,5 +1,24 @@
 import { ColorKeys, Colors } from "../types";
-export declare const COLORS: readonly ["blue", "orange", "yellow", "red", "purple", "amber", "lime", "green", "emerald", "teal", "cyan", "sky", "indigo", "violet", "purple", "fuchsia", "pink", "rose"];
+export declare const COLORS: readonly [
+    "blue",
+    "orange",
+    "yellow",
+    "red",
+    "purple",
+    "amber",
+    "lime",
+    "green",
+    "emerald",
+    "teal",
+    "cyan",
+    "sky",
+    "indigo",
+    "violet",
+    "purple",
+    "fuchsia",
+    "pink",
+    "rose"
+];
 export declare const DEFAULT_COLOR: ColorKeys;
 export declare const LANGUAGE = "en";
 export declare const DATE_FORMAT = "YYYY-MM-DD";
